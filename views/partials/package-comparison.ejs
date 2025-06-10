@@ -1,0 +1,127 @@
+<section id="pricing" class="pricing-section">
+    <div class="container">
+        <h2 class="section-title">Chọn gói dịch vụ phù hợp</h2>
+        
+        <div class="pricing-grid">
+            <div class="pricing-card">
+                <h3 class="pricing-name">Gói Basic</h3>
+                <div class="pricing-price">100.000đ</div>
+                <ul class="pricing-features">
+                    <li class="included">3 web template</li>
+                    <li class="included">2 email template</li>
+                    <li class="excluded">Custom nội dung website</li>
+                    <li class="excluded">Hỗ trợ poster, lễ phục</li>
+                    <li class="included">Hình ảnh demo</li>
+                    <li class="included">Bàn giao trong 48h</li>
+                </ul>
+                <a href="#contact-form" class="btn">Chọn gói này</a>
+            </div>
+            
+            <div class="pricing-card popular">
+                <h3 class="pricing-name">Gói Gold</h3>
+                <div class="pricing-price">200.000đ</div>
+                <ul class="pricing-features">
+                    <li class="included">5 web template</li>
+                    <li class="included">3 email template</li>
+                    <li class="included">Custom nội dung website (3 lần)</li>
+                    <li class="included">Hỗ trợ poster, lễ phục</li>
+                    <li class="included">Hình ảnh demo</li>
+                    <li class="included">Bàn giao trong 48h</li>
+                </ul>
+                <a href="#contact-form" class="btn">Chọn gói này</a>
+            </div>
+            
+            <div class="pricing-card">
+                <h3 class="pricing-name">Gói Platinum</h3>
+                <div class="pricing-price">300.000đ</div>
+                <ul class="pricing-features">
+                    <li class="included">7 web template</li>
+                    <li class="included">4 email template</li>
+                    <li class="included">Custom nội dung website (6 lần)</li>
+                    <li class="included">Hỗ trợ poster, lễ phục</li>
+                    <li class="included">Hình ảnh demo</li>
+                    <li class="included">Bàn giao trong 24h</li>
+                </ul>
+                <a href="#contact-form" class="btn">Chọn gói này</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .pricing-section {
+        padding: 60px 0;
+        background-color: #f9f9f9;
+    }
+    .section-title {
+        text-align: center;
+        margin-bottom: 40px;
+        font-size: 28px;
+        font-weight: bold;
+    }
+    .pricing-grid {
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+    }
+    .pricing-card {
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        margin: 10px;
+        padding: 20px;
+        text-align: center;
+        flex: 1 1 300px;
+    }
+    .pricing-name {
+        font-size: 22px;
+        margin-bottom: 20px;
+    }
+    .pricing-price {
+        font-size: 18px;
+        margin-bottom: 20px;
+        color: #333;
+    }
+    .pricing-features {
+        list-style: none;
+        padding: 0;
+        margin: 0 0 20px;
+        text-align: left;
+    }
+    .pricing-features li {
+        margin-bottom: 10px;
+    }
+    .included:before {
+        content: "✔️";
+        margin-right: 8px;
+        color: green;
+    }
+    .excluded:before {
+        content: "❌";
+        margin-right: 8px;
+        color: red;
+    }
+    .btn {
+        display: inline-block;
+        padding: 10px 20px;
+        margin-top: 10px;
+        border-radius: 5px;
+        text-decoration: none;
+        font-weight: bold;
+    }
+    .btn-primary {
+        background-color: #007bff;
+        color: white;
+    }
+    .btn-secondary {
+        background-color: #6c757d;
+        color: white;
+    }
+    .popular {
+        border: 2px solid #007bff;
+        transition: transform 0.3s;
+    }
+    .popular:hover {
+        transform: translateY(-5px);
+    }
+</style>

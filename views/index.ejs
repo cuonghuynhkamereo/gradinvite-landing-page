@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Landing Page</title>
+    <link rel="stylesheet" href="/css/normalize.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/animations.css">
+</head>
+<body>
+    <div class="page-loader">
+        <div class="loader-content">
+            <img src="/images/logo.png" alt="Gradinvite Logo" class="loader-logo">
+            <div class="loader-spinner">
+                <div class="spinner-circle"></div>
+                <div class="spinner-circle"></div>
+                <div class="spinner-circle"></div>
+            </div>
+        </div>
+    </div>
+    
+    <nav>
+        <%- include('partials/navigation') %>
+    </nav>
+    
+    <header>
+        <%- include('partials/header') %>
+    </header>
+
+    <section id="service-intro">
+        <%- include('partials/service-intro') %>
+    </section>
+
+    <section id="package-comparison">
+        <%- include('partials/package-comparison') %>
+    </section>
+
+    <section id="template-gallery">
+        <%- include('partials/template-gallery') %>
+    </section>
+
+    <section id="video-section">
+        <%- include('partials/video-section') %>
+    </section>
+
+    <section id="contact-form">
+        <%- include('partials/contact-form') %>
+    </section>
+
+    <section id="faq">
+        <%- include('partials/faq') %>
+    </section>
+
+    <footer>
+        <%- include('partials/footer') %>
+    </footer>
+
+    <div class="floating-action-button">
+        <button class="fab-button" aria-label="Quick contact options">
+            <i class="fas fa-comments"></i>
+        </button>
+        <div class="fab-options">
+            <a href="tel:+84123456789" class="fab-option phone-option">
+                <i class="fas fa-phone-alt"></i>
+                <span>Gọi điện</span>
+            </a>
+            <a href="https://zalo.me/0123456789" target="_blank" class="fab-option zalo-option">
+                <i class="fas fa-comment"></i>
+                <span>Zalo</span>
+            </a>
+            <a href="#contact-form" class="fab-option form-option">
+                <i class="fas fa-envelope"></i>
+                <span>Liên hệ</span>
+            </a>
+        </div>
+    </div>
+
+    <script src="/js/main.js"></script>
+    <script src="/js/form-validation.js"></script>
+    <script src="/js/animations.js"></script>
+</body>
+</html>

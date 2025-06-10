@@ -1,0 +1,65 @@
+<section id="contact-form" class="contact-section">
+    <div class="container">
+        <h2 class="section-title">Đăng ký nhận tư vấn</h2>
+        
+        <div class="contact-container">
+            <form class="contact-form" id="requestForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="fullName">Họ và tên</label>
+                        <input type="text" id="fullName" name="fullName" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">Số điện thoại <span class="text-danger">*</span></label>
+                        <input type="tel" id="phone" name="phone" class="form-control" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Địa chỉ email</label>
+                    <input type="email" id="email" name="email" class="form-control">
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="university">Trường đại học</label>
+                        <input type="text" id="university" name="university" class="form-control">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="graduationDate">Ngày dự kiến lễ tốt nghiệp</label>
+                        <input type="date" id="graduationDate" name="graduationDate" class="form-control">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="package">Gói dịch vụ quan tâm</label>
+                    <select id="package" name="package" class="form-control">
+                        <option value="">-- Chọn gói dịch vụ --</option>
+                        <option value="basic">Basic (100.000đ)</option>
+                        <option value="gold">Gold (200.000đ)</option>
+                        <option value="platinum">Platinum (300.000đ)</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="notes">Ghi chú thêm</label>
+                    <textarea id="notes" name="notes" rows="4" class="form-control"></textarea>
+                </div>
+                
+                <button type="submit" class="submit-btn">Tư vấn cho tôi ngay</button>
+                
+                <div class="social-contact">
+                    <p>Hoặc liên hệ qua:</p>
+                    <div class="social-buttons">
+                        <a href="#" class="zalo-button">Zalo</a>
+                        <a href="#" class="messenger-button">Messenger</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+<script src="/js/form-validation.js"></script>
