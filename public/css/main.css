@@ -327,37 +327,83 @@ body {
 
 .service-card {
   background: white;
-  border-radius: 12px;
+  border-radius: 16px;
   padding: 40px 30px;
   box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-  transition: all 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
 }
 
 .service-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+}
+
+.service-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background: linear-gradient(90deg, var(--primary), var(--accent));
 }
 
 .service-icon {
-  width: 60px;
-  height: 60px;
-  background-color: rgba(67, 97, 238, 0.1);
-  border-radius: 12px;
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(99,102,241,0.1), rgba(236,72,153,0.1));
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 24px;
+  margin-bottom: 25px;
+}
+
+.service-img {
+  width: 50px;
+  height: 50px;
 }
 
 .service-title {
-  font-size: 1.4rem;
-  margin-bottom: 16px;
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+  font-weight: 600;
   color: var(--text-primary);
 }
 
 .service-description {
-  color: var(--text-light);
-  font-size: 1rem;
+  color: var(--text-secondary);
+  margin-bottom: 25px;
+  line-height: 1.7;
+}
+
+.service-features {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-top: auto;
+}
+
+.feature-tag {
+  background: rgba(99,102,241,0.1);
+  color: var(--primary);
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 20px;
+}
+
+@media (max-width: 768px) {
+  .service-card {
+    padding: 30px 20px;
+  }
 }
 
 /* Pricing Table */
@@ -957,7 +1003,7 @@ button[type="submit"] {
 }
 
 .messenger-button {
-  background-color: #0084FF;
+  background-color: #A33BFF;
   color: white;
 }
 
@@ -1064,7 +1110,6 @@ footer {
 .footer-brand p {
   color: #b3b3b3;
   font-size: 0.95rem;
-  margin-bottom: 20px;
 }
 
 .footer-brand h3.brand-name {
@@ -1903,4 +1948,12 @@ body.modal-open {
 .testimonial-card, .faq-item, .navbar-nav a, 
 .filter-btn, .fab-button, .fab-option {
   transition: all 0.3s ease;
+}
+
+.section-subtitle {
+  text-align: center;
+  max-width: 700px;
+  margin: -30px auto 50px;
+  color: var(--text-secondary);
+  font-size: 1.1rem;
 }
