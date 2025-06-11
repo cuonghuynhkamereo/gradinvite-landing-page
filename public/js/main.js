@@ -65,25 +65,57 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Xử lý FAQ
+    // Xử lý FAQ - loại bỏ event listener lồng nhau 
     const faqItems = document.querySelectorAll('.faq-item');
     
     faqItems.forEach(item => {
         const toggle = item.querySelector('.faq-toggle');
         
-        toggle.addEventListener('click', () => {
-            // Đóng các FAQ khác
-            faqItems.forEach(otherItem => {
-                if (otherItem !== item && otherItem.classList.contains('active')) {
-                    otherItem.classList.remove('active');
-                    otherItem.querySelector('.faq-toggle').textContent = '+';
+        if (toggle) {
+            toggle.addEventListener('click', () => {
+                // Đóng các FAQ khác
+                faqItems.forEach(otherItem => {
+                    if (otherItem !== item && otherItem.classList.contains('active')) {
+                        otherItem.classList.remove('active');
+                        otherItem.querySelector('.faq-toggle').textContent = '+';
+                    }
+                });
+                
+                // Toggle FAQ hiện tại
+                item.classList.toggle('active');
+                toggle.textContent = item.classList.contains('active') ? '−' : '+';
+            });
+        }
+    });
+    
+    // Thêm sự kiện click cho cả câu hỏi (không chỉ nút toggle)
+    faqItems.forEach(item => {
+        const question = item.querySelector('.faq-question');
+        
+        if (question) {
+            question.addEventListener('click', (e) => {
+                // Không xử lý khi click vào nút toggle (sẽ do sự kiện trên xử lý)
+                if (e.target.classList.contains('faq-toggle') || e.target === item.querySelector('.faq-toggle')) {
+                    return;
+                }
+                
+                const toggle = item.querySelector('.faq-toggle');
+                
+                // Đóng các FAQ khác
+                faqItems.forEach(otherItem => {
+                    if (otherItem !== item && otherItem.classList.contains('active')) {
+                        otherItem.classList.remove('active');
+                        otherItem.querySelector('.faq-toggle').textContent = '+';
+                    }
+                });
+                
+                // Toggle FAQ hiện tại
+                item.classList.toggle('active');
+                if (toggle) {
+                    toggle.textContent = item.classList.contains('active') ? '−' : '+';
                 }
             });
-            
-            // Toggle FAQ hiện tại
-            item.classList.toggle('active');
-            toggle.textContent = item.classList.contains('active') ? '−' : '+';
-        });
+        }
     });
     
     // Xử lý cho các nút trong gallery

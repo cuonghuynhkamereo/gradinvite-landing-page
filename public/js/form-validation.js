@@ -4,6 +4,19 @@ document.addEventListener('DOMContentLoaded', function() {
     const emailInput = document.getElementById('email');
     const messageInput = document.getElementById('message');
 
+    // Thêm dấu * cho tất cả các trường bắt buộc có thể bị누락
+    const requiredFields = document.querySelectorAll('input[required], select[required]');
+
+    requiredFields.forEach(field => {
+        const label = field.previousElementSibling;
+        if (label && label.tagName === 'LABEL' && !label.querySelector('.required-mark')) {
+            const requiredMark = document.createElement('span');
+            requiredMark.className = 'required-mark';
+            requiredMark.textContent = '*';
+            label.appendChild(requiredMark);
+        }
+    });
+
     if (form) {
         form.addEventListener('submit', function(e) {
             let isValid = true;
@@ -38,6 +51,35 @@ document.addEventListener('DOMContentLoaded', function() {
                 alert('Vui lòng nhập số điện thoại hợp lệ (10 số, bắt đầu bằng 0 hoặc +84)');
                 phoneInput.focus();
                 return false;
+            }
+
+            // Hiển thị thông báo lỗi rõ ràng khi submit form
+            const invalidFields = form.querySelectorAll('input:invalid, select:invalid');
+
+            if (invalidFields.length > 0) {
+                e.preventDefault();
+                // Focus vào field lỗi đầu tiên
+                invalidFields[0].focus();
+
+                // Hiển thị thông báo
+                const errorMsg = document.createElement('div');
+                errorMsg.className = 'form-error-message';
+                errorMsg.textContent = 'Vui lòng điền đầy đủ thông tin bắt buộc';
+
+                // Xóa thông báo lỗi cũ nếu có
+                const oldError = form.querySelector('.form-error-message');
+                if (oldError) {
+                    oldError.remove();
+                }
+
+                // Thêm thông báo lỗi mới
+                form.insertBefore(errorMsg, form.firstChild);
+
+                // Tự động ẩn thông báo sau 5 giây
+                setTimeout(() => {
+                    errorMsg.classList.add('fade-out');
+                    setTimeout(() => errorMsg.remove(), 500);
+                }, 5000);
             }
 
             // If the form is valid, submit it

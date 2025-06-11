@@ -3,39 +3,40 @@
         <h2 class="section-title">Đăng ký nhận tư vấn</h2>
         
         <div class="contact-container">
+            <!-- Cập nhật form trong contact-form.ejs -->
             <form class="contact-form" id="requestForm">
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="fullName">Họ và tên</label>
+                        <label for="fullName">Họ và tên <span class="required-mark">*</span></label>
                         <input type="text" id="fullName" name="fullName" class="form-control" required>
                     </div>
                     
                     <div class="form-group">
-                        <label for="phone">Số điện thoại <span class="text-danger">*</span></label>
+                        <label for="phone">Số điện thoại <span class="required-mark">*</span></label>
                         <input type="tel" id="phone" name="phone" class="form-control" required>
                     </div>
                 </div>
                 
                 <div class="form-group">
-                    <label for="email">Địa chỉ email</label>
-                    <input type="email" id="email" name="email" class="form-control">
+                    <label for="email">Địa chỉ email <span class="required-mark">*</span></label>
+                    <input type="email" id="email" name="email" class="form-control" required>
                 </div>
                 
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="university">Trường đại học</label>
-                        <input type="text" id="university" name="university" class="form-control">
+                        <label for="university">Trường đại học <span class="required-mark">*</span></label>
+                        <input type="text" id="university" name="university" class="form-control" required>
                     </div>
                     
                     <div class="form-group">
-                        <label for="graduationDate">Ngày dự kiến lễ tốt nghiệp</label>
-                        <input type="date" id="graduationDate" name="graduationDate" class="form-control">
+                        <label for="graduationDate">Ngày dự kiến lễ tốt nghiệp <span class="required-mark">*</span></label>
+                        <input type="date" id="graduationDate" name="graduationDate" class="form-control" required>
                     </div>
                 </div>
                 
                 <div class="form-group">
-                    <label for="package">Gói dịch vụ quan tâm</label>
-                    <select id="package" name="package" class="form-control">
+                    <label for="package">Gói dịch vụ quan tâm <span class="required-mark">*</span></label>
+                    <select id="package" name="package" class="form-control" required>
                         <option value="">-- Chọn gói dịch vụ --</option>
                         <option value="basic">Basic (100.000đ)</option>
                         <option value="gold">Gold (200.000đ)</option>
@@ -48,13 +49,27 @@
                     <textarea id="notes" name="notes" rows="4" class="form-control"></textarea>
                 </div>
                 
+                <div class="form-note">
+                    <p><span class="required-mark">*</span> Thông tin bắt buộc</p>
+                </div>
+                
                 <button type="submit" class="submit-btn">Tư vấn cho tôi ngay</button>
                 
                 <div class="social-contact">
                     <p>Hoặc liên hệ qua:</p>
                     <div class="social-buttons">
-                        <a href="#" class="zalo-button">Zalo</a>
-                        <a href="#" class="messenger-button">Messenger</a>
+                        <a href="#" class="social-button">
+                            <div class="logo-container zalo-container">
+                                <img src="/images/zalo-logo.png" alt="Zalo" class="social-logo">
+                            </div>
+                            <span class="social-name">Zalo</span>
+                        </a>
+                        <a href="#" class="social-button">
+                            <div class="logo-container messenger-container">
+                                <img src="/images/mess-logo.png" alt="Messenger" class="social-logo">
+                            </div>
+                            <span class="social-name">Messenger</span>
+                        </a>
                     </div>
                 </div>
             </form>

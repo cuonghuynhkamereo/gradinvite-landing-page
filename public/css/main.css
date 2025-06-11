@@ -1,5 +1,6 @@
-/* Thêm styles cho navigation vào đầu file main.css */
+/* Điều chỉnh kích thước tổng thể cho trang web */
 :root {
+  /* Giữ nguyên các biến màu sắc */
   --primary: #6366F1;
   --secondary: #4F46E5;
   --accent: #EC4899;
@@ -44,14 +45,42 @@
   display: flex;
   align-items: center;
   text-decoration: none;
-  color: var(--primary);
-  font-size: 1.4rem;
-  font-weight: 700;
 }
 
 .logo img {
-  height: 50px;
+  height: 40px;
   margin-right: 10px;
+}
+
+.logo span {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--primary);
+  background: linear-gradient(45deg, var(--primary), var(--accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: 0.5px;
+}
+
+/* CSS cho validation message */
+.form-error-message {
+  background-color: rgba(239, 68, 68, 0.1);
+  color: var(--danger);
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  border-left: 4px solid var(--danger);
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-out {
+  opacity: 0;
+  transition: opacity 0.5s;
 }
 
 .navbar-menu {
@@ -188,20 +217,22 @@ body {
   background-color: var(--white);
   color: var(--text-primary);
   line-height: 1.6;
+  font-size: 15px; /* Giảm kích thước font mặc định */
 }
 
 .container {
   width: 100%;
-  max-width: 1200px;
+  max-width: 1140px; /* Giảm từ 1200px xuống 1140px */
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 0 15px; /* Giảm padding từ 20px xuống 15px */
+  box-sizing: border-box;
 }
 
 /* Cải thiện nhất quán trong spacing */
 .section-title {
-  font-size: 2.5rem;
+  font-size: 2.2rem; /* Giảm từ 2.5rem */
   text-align: center;
-  margin-bottom: 50px;
+  margin-bottom: 40px; /* Giảm từ 50px */
   color: var(--text-primary);
   position: relative;
 }
@@ -231,6 +262,20 @@ body {
   padding-top: 100px;
 }
 
+.hero-badge {
+  background: linear-gradient(45deg, var(--primary), var(--accent));
+  color: white;
+  padding: 10px 20px;
+  border-radius: 30px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  display: inline-block;
+  margin-bottom: 25px;
+  box-shadow: 0 4px 15px rgba(236, 72, 153, 0.3);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
 .hero-content {
   backdrop-filter: blur(8px);
   background: rgba(255, 255, 255, 0.7);
@@ -243,12 +288,15 @@ body {
 }
 
 .hero-title {
+  /* color: var(--text-primary); */
   background: linear-gradient(90deg, var(--primary), var(--accent));
   -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  font-size: 4rem;
-  line-height: 1.1;
-  margin-bottom: 30px;
+  -webkit-text-fill-color: transparent;  
+  font-size: 3.5rem;
+  font-weight: 1200; /* Tăng font-weight */
+  margin-bottom: 20px;
+  line-height: 1.2;
+  text-align: center;
 }
 
 .hero-subtitle {
@@ -258,6 +306,7 @@ body {
   max-width: 700px;
   margin-left: auto;
   margin-right: auto;
+  text-align: center;
 }
 
 .cta-buttons {
@@ -474,7 +523,7 @@ body {
   right: -36px;
   background: linear-gradient(135deg, var(--primary), var(--accent));
   color: white;
-  padding: 8px 40px;
+  padding: 8px 50px;
   transform: rotate(45deg);
   font-size: 12px;
   font-weight: 600;
@@ -686,7 +735,7 @@ body {
 
 /* Template Gallery */
 .templates-section {
-  padding: 50px 0;
+  padding: 100px 0;
   background-color: var(--white);
 }
 
@@ -748,7 +797,7 @@ body {
 
 /* Video Demo Section */
 .video-section {
-  padding: 50px 0;
+  padding: 100px 0;
   background-color: var(--light-bg);
   text-align: center;
 }
@@ -946,6 +995,18 @@ body {
   position: relative;
 }
 
+/* CSS cho required fields */
+.required-mark {
+  color: var(--danger);
+  margin-left: 3px;
+}
+
+.form-note {
+  font-size: 0.85rem;
+  color: var(--text-light);
+  margin-bottom: 15px;
+}
+
 .form-group label {
   display: block;
   margin-bottom: 8px;
@@ -978,96 +1039,79 @@ button[type="submit"] {
   text-align: center;
 }
 
+.social-contact p {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  margin-bottom: 16px;
+}
+
 .social-buttons {
   display: flex;
-  gap: 15px;
   justify-content: center;
-  margin-top: 15px;
+  gap: 24px;
+  margin-top: 12px;
 }
 
-.zalo-button, .messenger-button {
+/* Thiết kế các nút social */
+.social-button {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  padding: 10px 20px;
-  border-radius: 8px;
-  font-weight: 600;
-  transition: all 0.3s ease;
   text-decoration: none;
-  cursor: pointer;
-}
-
-.zalo-button {
-  background-color: #0068FF;
-  color: white;
-}
-
-.messenger-button {
-  background-color: #A33BFF;
-  color: white;
-}
-
-.zalo-button:hover, .messenger-button:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-}
-
-/* FAQ Section */
-.faq-section {
-  padding: 100px 0;
-  background-color: var(--light-bg);
-}
-
-.faq-container {
-  max-width: 800px;
-  margin: 0 auto;
-}
-
-.faq-item {
-  background-color: white;
-  border-radius: 12px;
-  padding: 20px 30px;
-  margin-bottom: 16px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-  cursor: pointer;
   transition: all 0.3s ease;
 }
 
-.faq-item:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+.social-button:hover {
+  transform: translateY(-5px);
 }
 
-.faq-question {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-weight: 600;
-  color: var(--text-primary);
-}
-
-.faq-answer {
-  margin-top: 16px;
-  color: var(--text-secondary);
-  display: none;
-}
-
-.faq-item.active .faq-answer {
-  display: block;
-}
-
-.faq-toggle {
-  background-color: rgba(67, 97, 238, 0.1);
-  color: var(--primary);
-  border: none;
-  width: 30px;
+/* Container cho logo */
+.logo-container {
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: bold;
-  font-size: 16px;
-  cursor: pointer;
+  margin-bottom: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  position: relative;
+  overflow: hidden; /* Quan trọng: đảm bảo cắt xén phần vượt ra */
+}
+
+/* Màu nền riêng cho từng logo */
+.zalo-container {
+  background-color: #0068FF;
+}
+
+.messenger-container {
+  background-color: #0084FF;
+}
+
+/* Điều chỉnh logo để fit vòng tròn */
+.social-logo {
+  width: 42px; /* Tăng kích thước từ 32px */
+  height: 42px; /* Tăng kích thước từ 32px */
+  object-fit: cover; /* Đảm bảo logo fill hoàn toàn không gian được cấp */
+  object-position: center; /* Giữ logo ở trung tâm */
+}
+
+/* Điều chỉnh riêng cho logo Zalo */
+.zalo-container .social-logo {
+  transform: scale(1.3); /* Phóng to logo Zalo thêm */
+}
+
+/* Tên của social network */
+.social-name {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin-top: 6px;
+  font-weight: 500;
+}
+
+/* Hiệu ứng cho hover */
+.social-button:hover .logo-container {
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
 }
 
 /* Footer */
@@ -1203,7 +1247,7 @@ footer {
   bottom: -5px;
   left: 0;
   width: 100%;
-  height: 2px;
+  height: 2.5px;
   background-color: var(--primary);
   animation: growLine 0.3s ease forwards;
 }
@@ -1815,6 +1859,10 @@ body.modal-open {
   position: relative;
 }
 
+.faq-section {
+  padding: 100px 0;
+}
+
 .services-section, .templates-section, .contact-section {
   background-color: var(--white);
 }
@@ -1824,44 +1872,39 @@ body.modal-open {
 }
 
 /* Responsive Improvements */
+@media (max-width: 1200px) {
+  .container {
+    max-width: 960px;
+  }
+}
+
 @media (max-width: 992px) {
-  .pricing-grid, .gallery-container {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  
-  .hero-title {
-    font-size: 3.2rem;
-  }
-  
-  .section-title {
-    font-size: 2.2rem;
+  .container {
+    max-width: 720px;
   }
 }
 
 @media (max-width: 768px) {
-  .pricing-grid, .gallery-container {
-    grid-template-columns: 1fr;
-  }
-  
-  section {
-    padding: 60px 0;
+  .container {
+    max-width: 540px;
   }
   
   .hero-title {
-    font-size: 2.5rem;
-  }
-  
-  .hero-content {
-    margin-top: 30px;
+    font-size: 2.2rem;
   }
   
   .section-title {
     font-size: 1.8rem;
-    margin-bottom: 30px;
   }
   
-  .testimonial-card, .pricing-card {
-    padding: 25px;
+  .pricing-grid, .gallery-container {
+    gap: 20px; /* Giảm khoảng cách */
+  }
+}
+
+@media (max-width: 576px) {
+  .container {
+    padding: 0 10px;
   }
 }
 
@@ -1879,7 +1922,7 @@ body.modal-open {
 }
 
 /* Đồng bộ hóa margins và paddings */
-.service-card, .pricing-card, .testimonial-card, .faq-item {
+.service-card, .pricing-card, .testimonial-card {
   padding: 30px;
   margin-bottom: 10px;
 }
@@ -1956,4 +1999,84 @@ body.modal-open {
   margin: -30px auto 50px;
   color: var(--text-secondary);
   font-size: 1.1rem;
+}
+
+/* Thêm styles cho phần FAQ */
+.faq-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.faq-item {
+  background-color: white;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  overflow: hidden;
+}
+
+.faq-question {
+  padding: 20px 25px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  border-bottom: 1px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.faq-question h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.faq-toggle {
+background-color: rgba(67, 97, 238, 0.1);
+    color: var(--primary);
+    border: none;
+    width: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+/* Quan trọng: Đảm bảo nội dung câu trả lời được ẩn theo mặc định */
+.faq-answer {
+  padding: 0 25px;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease, padding 0.4s ease;
+  opacity: 0;
+}
+
+/* Khi FAQ được active */
+.faq-item.active .faq-question {
+  border-bottom-color: var(--border);
+}
+
+.faq-item.active .faq-toggle {
+  background-color: var(--primary);
+  color: white;
+}
+
+.faq-item.active .faq-answer {
+  max-height: 300px; /* Đủ cao để chứa nội dung */
+  padding: 25px;
+  opacity: 1;
+}
+
+/* Hiệu ứng hover */
+.faq-question:hover {
+  background-color: rgba(99, 102, 241, 0.05);
+}
+
+.faq-toggle:hover {
+  background-color: var(--primary);
+  color: white;
 }
