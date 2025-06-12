@@ -4,11 +4,35 @@ document.addEventListener('DOMContentLoaded', function() {
     const navbarMenu = document.querySelector('.navbar-menu');
     const body = document.body;
     
-    if (mobileToggle) {
+    if (mobileToggle && navbarMenu) {
         mobileToggle.addEventListener('click', function() {
             this.classList.toggle('active');
             navbarMenu.classList.toggle('active');
             body.classList.toggle('menu-open');
+            
+            // Ngăn các phần tử khác chạy khi menu mở
+            if (body.classList.contains('menu-open')) {
+                document.querySelectorAll('.running-bar, .progress-bar, .animated-element')
+                    .forEach(el => {
+                        if (el.style) el.style.animationPlayState = 'paused';
+                    });
+            } else {
+                document.querySelectorAll('.running-bar, .progress-bar, .animated-element')
+                    .forEach(el => {
+                        if (el.style) el.style.animationPlayState = 'running';
+                    });
+            }
+        });
+        
+        // Close menu when clicking outside
+        document.addEventListener('click', function(event) {
+            if (body.classList.contains('menu-open') && 
+                !navbarMenu.contains(event.target) && 
+                !mobileToggle.contains(event.target)) {
+                mobileToggle.classList.remove('active');
+                navbarMenu.classList.remove('active');
+                body.classList.remove('menu-open');
+            }
         });
         
         // Close menu when clicking a nav link on mobile
@@ -21,6 +45,34 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     }
+    
+    // Prevent scrolling when menu is open
+    function preventScroll(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        return false;
+    }
+    
+    function toggleScrollLock() {
+        if (body.classList.contains('menu-open')) {
+            document.addEventListener('wheel', preventScroll, {passive: false});
+            document.addEventListener('touchmove', preventScroll, {passive: false});
+        } else {
+            document.removeEventListener('wheel', preventScroll);
+            document.removeEventListener('touchmove', preventScroll);
+        }
+    }
+    
+    // Add event listener for class changes on body element
+    const observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+            if (mutation.attributeName === 'class') {
+                toggleScrollLock();
+            }
+        });
+    });
+    
+    observer.observe(body, {attributes: true});
     
     // Template filtering
     const filterButtons = document.querySelectorAll('.filter-btn');
@@ -610,4 +662,116 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     // Rest of your existing code...
+});
+
+// Cải thiện touch interactions
+document.addEventListener('DOMContentLoaded', function() {
+    // Tăng diện tích click cho các phần tử interactive trên mobile
+    const interactiveElements = document.querySelectorAll('.view-button, .filter-btn, .faq-toggle');
+    
+    interactiveElements.forEach(element => {
+        // Thêm event handler cho touchstart để phản hồi nhanh hơn
+        element.addEventListener('touchstart', function(e) {
+            // Thêm class để hiển thị hover state ngay lập tức
+            this.classList.add('touch-active');
+        }, { passive: true });
+        
+        element.addEventListener('touchend', function(e) {
+            // Xóa class sau khi touch kết thúc
+            this.classList.remove('touch-active');
+        });
+    });
+    
+    // Tối ưu cho FAQ trên touch device
+    const faqQuestions = document.querySelectorAll('.faq-question');
+    
+    faqQuestions.forEach(question => {
+        question.addEventListener('touchstart', function(e) {
+            // Prevent default chỉ khi cần thiết để tránh ảnh hưởng đến scroll
+            if (e.target.classList.contains('faq-toggle')) {
+                e.preventDefault();
+            }
+        }, { passive: false });
+    });
+});
+
+// Thay thế phần xử lý FAQ trong file main.js
+document.addEventListener('DOMContentLoaded', function() {
+    // Xử lý FAQ với hỗ trợ touch tốt hơn
+    const faqItems = document.querySelectorAll('.faq-item');
+    
+    faqItems.forEach((item, index) => {
+        const question = item.querySelector('.faq-question');
+        const toggle = item.querySelector('.faq-toggle');
+        
+        // Xử lý click vào câu hỏi
+        if (question) {
+            // Dùng hàm chung cho cả màn hình lớn và nhỏ
+            const handleQuestionActivation = function(e) {
+                // Bỏ qua nếu click vào nút toggle (sẽ được xử lý riêng)
+                if (e.target === toggle || toggle.contains(e.target)) {
+                    return;
+                }
+                
+                // Đóng các FAQ khác
+                faqItems.forEach(otherItem => {
+                    if (otherItem !== item && otherItem.classList.contains('active')) {
+                        otherItem.classList.remove('active');
+                        const otherToggle = otherItem.querySelector('.faq-toggle');
+                        if (otherToggle) otherToggle.textContent = '+';
+                    }
+                });
+                
+                // Toggle FAQ hiện tại
+                const isActive = item.classList.toggle('active');
+                if (toggle) {
+                    toggle.textContent = isActive ? '−' : '+';
+                }
+            };
+            
+            // Thêm xử lý cho các loại sự kiện
+            question.addEventListener('click', handleQuestionActivation);
+            
+            // Thêm xử lý touch events đặc biệt cho mobile
+            question.addEventListener('touchend', function(e) {
+                // Ngăn nhiều sự kiện xảy ra
+                if (e.cancelable) {
+                    e.preventDefault();
+                }
+                handleQuestionActivation(e);
+            }, {passive: false});
+        }
+        
+        // Xử lý click vào nút toggle
+        if (toggle) {
+            const handleToggleActivation = function(e) {
+                // Đóng các FAQ khác
+                faqItems.forEach(otherItem => {
+                    if (otherItem !== item && otherItem.classList.contains('active')) {
+                        otherItem.classList.remove('active');
+                        const otherToggle = otherItem.querySelector('.faq-toggle');
+                        if (otherToggle) otherToggle.textContent = '+';
+                    }
+                });
+                
+                // Toggle FAQ hiện tại
+                const isActive = item.classList.toggle('active');
+                toggle.textContent = isActive ? '−' : '+';
+                
+                // Dừng sự kiện lan truyền
+                e.stopPropagation();
+            };
+            
+            // Thêm xử lý cho các loại sự kiện
+            toggle.addEventListener('click', handleToggleActivation);
+            
+            // Thêm xử lý touch events cho mobile
+            toggle.addEventListener('touchend', function(e) {
+                if (e.cancelable) {
+                    e.preventDefault();
+                }
+                handleToggleActivation(e);
+            }, {passive: false});
+        }
+    });
 });

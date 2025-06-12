@@ -98,6 +98,7 @@
 
 .navbar-nav li {
   margin: 0 15px;
+  align-content: center;
 }
 
 .navbar-nav a {
@@ -147,10 +148,10 @@
 }
 
 /* Responsive Navigation */
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1200px) {
   .mobile-toggle {
     display: block;
-    z-index: 1001;
+    z-index: 2001; /* Cao hơn navbar-menu */
   }
   
   .navbar-menu {
@@ -158,14 +159,14 @@
     top: 0;
     right: -100%;
     width: 80%;
-    max-width: 300px;
+    max-width: 320px;
     height: 100vh;
     background-color: white;
-    box-shadow: -5px 0 15px rgba(0,0,0,0.1);
-    transition: right 0.3s ease;
-    flex-direction: column;
-    justify-content: center;
-    z-index: 1000;
+    z-index: 2000; /* Z-index cao để đảm bảo hiển thị trên cùng */
+    transition: all 0.3s ease;
+    padding: 80px 20px 30px;
+    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
   }
   
   .navbar-menu.active {
@@ -174,32 +175,105 @@
   
   .navbar-nav {
     flex-direction: column;
-    align-items: center;
     width: 100%;
   }
   
   .navbar-nav li {
     margin: 15px 0;
     width: 100%;
+    text-align: left;
+  }
+  
+  .mobile-toggle {
+    display: block;
+    z-index: 2001; /* Cao hơn navbar-menu */
+  }
+  
+  body.menu-open::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    /* z-index: 1999; */
+  }
+  
+  /* Cải thiện nút toggle */
+  .mobile-toggle {
+    width: 35px;
+    height: 30px;
+    position: relative;
+    margin-left: auto;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    padding: 0;
+  }
+  
+  .mobile-toggle span {
+    display: block;
+    position: absolute;
+    height: 3px;
+    width: 100%;
+    background: var(--primary);
+    border-radius: 3px;
+    opacity: 1;
+    left: 0;
+    transform: rotate(0deg);
+    transition: .25s ease-in-out;
+  }
+  
+  .mobile-toggle span:nth-child(1) { top: 0px; }
+  .mobile-toggle span:nth-child(2) { top: 10px; }
+  .mobile-toggle span:nth-child(3) { top: 20px; }
+  
+  /* Hiệu ứng khi menu mở */
+  body.menu-open .mobile-toggle span:nth-child(1) {
+    top: 10px;
+    transform: rotate(135deg);
+  }
+  
+  body.menu-open .mobile-toggle span:nth-child(2) {
+    opacity: 0;
+    left: -60px;
+  }
+  
+  body.menu-open .mobile-toggle span:nth-child(3) {
+    top: 10px;
+    transform: rotate(-135deg);
+  }
+  
+  /* Cải thiện hiệu ứng khi menu mở */
+  .btn-nav {
+    margin-top: 20px;
+    width: 100%;
     text-align: center;
   }
-  
-  body.menu-open {
-    overflow: hidden;
-  }
-  
-  .mobile-toggle.active span:nth-child(1) {
-    transform: rotate(45deg) translate(5px, 6px);
-  }
-  
-  .mobile-toggle.active span:nth-child(2) {
-    opacity: 0;
-  }
-  
-  .mobile-toggle.active span:nth-child(3) {
-    transform: rotate(-45deg) translate(5px, -6px);
-  }
 }
+
+/* Điều chỉnh thêm cho tablet */
+@media screen and (min-width: 768px) and (max-width: 1200px) {
+  .navbar-menu {
+    max-width: 350px; /* Rộng hơn một chút trên tablet */
+  }
+  
+  .mobile-toggle {
+    width: 40px; /* Lớn hơn một chút trên tablet */
+    height: 35px;
+  }
+  
+  .mobile-toggle span:nth-child(1) { top: 0px; }
+  .mobile-toggle span:nth-child(2) { top: 12px; }
+  .mobile-toggle span:nth-child(3) { top: 24px; }
+  
+  /* Đối với body.menu-open, cũng cần điều chỉnh position span khi mở menu */
+  body.menu-open .mobile-toggle span:nth-child(1) { top: 12px; }
+  body.menu-open .mobile-toggle span:nth-child(3) { top: 12px; }
+}
+
+/* Xóa bỏ bất kỳ CSS nào hiện có cho menu trong @media (max-width: 768px) */
 
 /* Adjusting hero section to account for header */
 .hero-section {
@@ -314,20 +388,6 @@ body {
   justify-content: center;
   gap: 16px;
   margin: 32px 0;
-}
-
-.btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 12px 28px;
-  border-radius: 8px;
-  font-weight: 600;
-  font-size: 16px;
-  transition: all 0.3s ease;
-  text-decoration: none;
-  cursor: pointer;
-  border: none;
 }
 
 .btn-primary {
@@ -680,7 +740,7 @@ body {
 .pricing-card:nth-child(2) .btn {
   background: linear-gradient(45deg, var(--primary), var(--accent));
   color: white;
-  box-shadow: 0 5px 15px rgba(99, 102, 241, 0.4);
+  box-shadow: 0 5px 15px rgba(99, 102,241, 0.4);
 }
 
 .pricing-card:nth-child(3) .btn {
@@ -1364,7 +1424,7 @@ p {
   border: none;
   border-radius: 30px;
   padding: 10px 20px;
-  margin: 0 8px;
+  margin: 10 8px;
   font-size: 14px;
   font-weight: 600;
   color: var(--text-secondary);
@@ -1904,12 +1964,55 @@ body.modal-open {
 
 @media (max-width: 576px) {
   .container {
-    padding: 0 10px;
+    padding: 0 15px;
+  }
+  
+  .hero-title {
+    font-size: 2rem;
+    margin-bottom: 15px;
+  }
+  
+  .hero-subtitle {
+    font-size: 1rem;
+    margin-bottom: 25px;
+  }
+  
+  .section-title {
+    font-size: 1.6rem;
+    margin-bottom: 30px;
+  }
+  
+  .pricing-name {
+    font-size: 1.5rem;
+  }
+  
+  .pricing-price {
+    font-size: 2.5rem;
+  }
+  
+  .service-title, .testimonial-content h3, .faq-question h3 {
+    font-size: 1.2rem;
+  }
+  
+  /* Tăng font size cho các target có thể click */
+  .btn, .submit-btn {
+    font-size: 1rem;
+    padding: 10px 20px;
+  }
+  
+  /* Giảm padding các section */
+  section {
+    padding: 50px 0;
+  }
+  
+  /* Điều chỉnh form */
+  .form-row {
+    grid-template-columns: 1fr;
   }
 }
 
 /* Mobile Menu Improvements */
-@media (max-width: 768px) {
+@media (max-width: 1200px) {
   .navbar-menu.active {
     padding: 80px 0 30px;
   }
@@ -2023,6 +2126,7 @@ body.modal-open {
   cursor: pointer;
   border-bottom: 1px solid transparent;
   transition: all 0.3s ease;
+  min-height: 60px; /* Đảm bảo đủ cao để tap */
 }
 
 .faq-question h3 {
@@ -2032,18 +2136,40 @@ body.modal-open {
   margin: 0;
 }
 
+/* Cải thiện touch target cho nút toggle */
 .faq-toggle {
-background-color: rgba(67, 97, 238, 0.1);
-    color: var(--primary);
-    border: none;
-    width: 30px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: bold;
-    font-size: 16px;
-    cursor: pointer;
+  background-color: rgba(67, 97, 238, 0.1);
+  color: var(--primary);
+  border: none;
+  width: 44px; /* Tăng từ 30px */
+  height: 44px; /* Thêm height rõ ràng */
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  touch-action: manipulation; /* Cải thiện performance touch */
+  -webkit-tap-highlight-color: transparent; /* Loại bỏ highlight khi tap trên iOS */
+}
+
+/* Thêm màu nền nhẹ khi active trên mobile */
+@media (hover: none) {
+  .faq-question:active {
+    background-color: rgba(99, 102, 241, 0.05);
+  }
+  
+  .faq-toggle:active {
+    background-color: var(--primary);
+    color: white;
+  }
+  
+  /* Đảm bảo đủ space giữa text và nút toggle */
+  .faq-question h3 {
+    padding-right: 15px;
+    width: calc(100% - 60px); /* Đảm bảo text không bị che bởi nút */
+  }
 }
 
 /* Quan trọng: Đảm bảo nội dung câu trả lời được ẩn theo mặc định */
@@ -2079,4 +2205,258 @@ background-color: rgba(67, 97, 238, 0.1);
 .faq-toggle:hover {
   background-color: var(--primary);
   color: white;
+}
+
+/* Điều chỉnh grid layouts cho các thiết bị khác nhau */
+@media screen and (max-width: 992px) {
+  .pricing-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+  }
+  
+  .gallery-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .pricing-card {
+    transform: scale(1) !important; /* Đảm bảo không có card nào lớn hơn */
+  }
+  
+  .testimonials-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .footer-container {
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .services-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .pricing-grid {
+    grid-template-columns: 1fr;
+    max-width: 450px;
+    margin: 0 auto;
+  }
+  
+  .gallery-container {
+    grid-template-columns: 1fr;
+  }
+  
+  .testimonials-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .hero-content {
+    padding: 30px 20px;
+  }
+  
+  .section-title {
+    font-size: 1.8rem;
+  }
+  
+  .footer-container {
+    grid-template-columns: 1fr;
+  }
+  
+  /* Tăng kích thước touch target trên mobile */
+  .view-button, .filter-btn, .faq-toggle, .social-button {
+    min-height: 44px; /* Đảm bảo đủ lớn cho ngón tay */
+  }
+  
+  .pricing-card {
+    margin-bottom: 30px;
+  }
+  
+  .faq-question h3 {
+    font-size: 1rem;
+    padding-right: 40px; /* Không bị che bởi nút toggle */
+  }
+}
+
+/* CSS cho touch interactions */
+.touch-active {
+  opacity: 0.7;
+}
+
+@media (hover: none) {
+  /* Chỉ áp dụng cho thiết bị không hỗ trợ hover */
+  .btn:hover, .service-card:hover, .pricing-card:hover, .gallery-item:hover {
+    transform: none; /* Vô hiệu hóa hiệu ứng hover không cần thiết trên thiết bị cảm ứng */
+  }
+  
+  /* Tăng kích thước tap target */
+  .navbar-nav a, .btn, .filter-btn, .view-button, .faq-toggle {
+    padding: 12px 16px;
+  }
+}
+
+/* Cải thiện mobile header */
+@media screen and (max-width: 768px) {
+  .main-header {
+    padding: 10px 0;
+  }
+  
+  .logo img {
+    height: 32px;
+  }
+  
+  .logo span {
+    font-size: 1.2rem;
+  }
+}
+
+/* Hỗ trợ khi xoay thiết bị */
+@media screen and (max-height: 500px) and (orientation: landscape) {
+  .navbar-menu.active {
+    padding-top: 60px;
+  }
+  
+  .navbar-menu.active .navbar-nav li {
+    margin: 8px 0;
+  }
+  
+  .hero-section {
+    min-height: 450px;
+  }
+  
+  .hero-content {
+    padding: 20px;
+  }
+  
+  .hero-title {
+    font-size: 1.8rem;
+  }
+}
+
+/* Cải thiện Template Preview Modal cho điện thoại */
+@media (max-width: 768px) {
+  .template-modal {
+    width: 95%;
+    max-width: 400px;
+    max-height: 85vh;
+    margin: 0 auto;
+  }
+  
+  .modal-body {
+    grid-template-columns: 1fr;
+    padding: 15px;
+    gap: 15px;
+  }
+  
+  .preview-image-container {
+    max-height: 220px;
+    overflow: hidden;
+  }
+  
+  .preview-title {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+  }
+  
+  .preview-description {
+    margin-bottom: 15px;
+    font-size: 0.95rem;
+  }
+  
+  .preview-features {
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+    gap: 10px;
+  }
+  
+  .feature {
+    padding: 8px 12px;
+    font-size: 0.85rem;
+  }
+  
+  .modal-header {
+    padding: 15px;
+  }
+  
+  .modal-close {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+/* Cải thiện thêm cho màn hình cực nhỏ */
+@media (max-width: 375px) {
+  .template-modal {
+    width: 98%;
+    border-radius: 12px;
+  }
+  
+  .preview-image-container {
+    max-height: 180px;
+  }
+  
+  .modal-body {
+    padding: 12px;
+  }
+  
+  .preview-features {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* Thêm những cải thiện khác cho mobile */
+
+/* Đảm bảo FAQ có thể scroll đúng trên mobile */
+.faq-answer {
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Đảm bảo nút có đủ kích thước trên mobile */
+@media (max-width: 768px) {
+  .faq-toggle {
+    width: 44px;
+    height: 44px;
+    /* Thêm một chút margin để tránh bị "fat finger" trên mobile */
+    margin-left: 10px;
+  }
+  
+  .faq-question {
+    padding-right: 15px; /* Giảm padding bên phải */
+  }
+  
+  /* Giữ cho text trong câu hỏi không bị overlap với nút */
+  .faq-question h3 {
+    font-size: 1rem;
+    line-height: 1.4;
+  }
+  
+  /* Đảm bảo modal preview template đủ cao để đọc */
+  .template-modal {
+    padding-bottom: 20px;
+  }
+}
+
+/* Thêm hiệu ứng phản hồi khi tap */
+@media (hover: none) {
+  .faq-toggle:active::after,
+  .faq-question:active::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: inherit;
+    opacity: 1;
+    animation: fadeOut 0.5s;
+  }
+  
+  @keyframes fadeOut {
+    to { opacity: 0; }
+  }
 }
