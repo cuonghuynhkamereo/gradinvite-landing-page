@@ -137,6 +137,12 @@ document.addEventListener('DOMContentLoaded', function() {
         contactForm.addEventListener('submit', function(e) {
             e.preventDefault();
             
+            // Show loading indicator
+            const submitBtn = this.querySelector('button[type="submit"]');
+            const originalText = submitBtn.textContent;
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Đang xử lý...';
+            
             // Xử lý form submission
             const formData = new FormData(this);
             const formObject = {};
@@ -155,16 +161,57 @@ document.addEventListener('DOMContentLoaded', function() {
             })
             .then(response => response.json())
             .then(data => {
+                // Re-enable button
+                submitBtn.disabled = false;
+                submitBtn.textContent = originalText;
+                
                 if (data.success) {
-                    alert('Cảm ơn bạn đã gửi thông tin! Chúng tôi sẽ liên hệ với bạn trong thời gian sớm nhất.');
+                    // Show success message
+                    const successMsg = document.createElement('div');
+                    successMsg.className = 'form-success-message';
+                    successMsg.innerHTML = `<i class="fas fa-check-circle"></i> ${data.message}`;
+                    contactForm.prepend(successMsg);
+                    
+                    // Reset the form
                     contactForm.reset();
+                    
+                    // Remove success message after 5 seconds
+                    setTimeout(() => {
+                        successMsg.classList.add('fade-out');
+                        setTimeout(() => successMsg.remove(), 500);
+                    }, 5000);
                 } else {
-                    alert('Có lỗi xảy ra, vui lòng thử lại sau.');
+                    // Show error message
+                    const errorMsg = document.createElement('div');
+                    errorMsg.className = 'form-error-message';
+                    errorMsg.innerHTML = `<i class="fas fa-exclamation-circle"></i> ${data.message}`;
+                    contactForm.prepend(errorMsg);
+                    
+                    // Remove error message after 5 seconds
+                    setTimeout(() => {
+                        errorMsg.classList.add('fade-out');
+                        setTimeout(() => errorMsg.remove(), 500);
+                    }, 5000);
                 }
             })
             .catch(error => {
                 console.error('Error:', error);
-                alert('Có lỗi xảy ra, vui lòng thử lại sau.');
+                
+                // Re-enable button
+                submitBtn.disabled = false;
+                submitBtn.textContent = originalText;
+                
+                // Show error message
+                const errorMsg = document.createElement('div');
+                errorMsg.className = 'form-error-message';
+                errorMsg.innerHTML = '<i class="fas fa-exclamation-circle"></i> Có lỗi xảy ra, vui lòng thử lại sau.';
+                contactForm.prepend(errorMsg);
+                
+                // Remove error message after 5 seconds
+                setTimeout(() => {
+                    errorMsg.classList.add('fade-out');
+                    setTimeout(() => errorMsg.remove(), 500);
+                }, 5000);
             });
         });
     }
@@ -708,4 +755,150 @@ document.addEventListener('DOMContentLoaded', function() {
             }, {passive: false});
         }
     });
+});
+
+// Helper function to find and select the template by name
+function selectTemplateByName(templateName) {
+    const templateSelect = document.querySelector('#template');
+    if (!templateSelect) return;
+    
+    const normalizedName = templateName.toLowerCase().trim();
+    
+    // Find the option that best matches the template name
+    const options = Array.from(templateSelect.options);
+    let bestMatch = null;
+    
+    for (const option of options) {
+        if (option.text.toLowerCase().includes(normalizedName)) {
+            bestMatch = option.value;
+            break;
+        }
+    }
+    
+    // If found, select it
+    if (bestMatch) {
+        templateSelect.value = bestMatch;
+        
+        // Also update the package dropdown to match
+        const packageSelect = document.querySelector('#package');
+        if (packageSelect) {
+            const packageType = templateSelect.options[templateSelect.selectedIndex].getAttribute('data-package');
+            if (packageType) {
+                packageSelect.value = packageType;
+            }
+        }
+    }
+}
+
+// Update handling when clicking "view-button" in gallery
+document.querySelectorAll('.view-button').forEach(button => {
+    button.addEventListener('click', function() {
+        // Get the template title
+        const templateTitle = this.closest('.gallery-item-content').querySelector('h3').textContent;
+        
+        // Scroll to contact form
+        document.querySelector('#contact-form').scrollIntoView({ 
+            behavior: 'smooth' 
+        });
+        
+        // Select the template
+        selectTemplateByName(templateTitle);
+        
+        // Add notification about selected template
+        const notification = document.createElement('div');
+        notification.className = 'template-selected-notification';
+        notification.innerHTML = `<i class="fas fa-check-circle"></i> Đã chọn mẫu: ${templateTitle}`;
+        
+        const contactForm = document.querySelector('.contact-form');
+        contactForm.insertBefore(notification, contactForm.firstChild);
+        
+        // Auto-focus on name field
+        document.getElementById('fullName').focus();
+        
+        // Remove notification after 5 seconds
+        setTimeout(() => {
+            notification.classList.add('fade-out');
+            setTimeout(() => notification.remove(), 500);
+        }, 5000);
+    });
+});
+
+// Update the choose-template button in the modal
+document.addEventListener('click', function(e) {
+    if (e.target && e.target.classList.contains('choose-template')) {
+        // Get template name from the modal
+        const title = document.querySelector('.preview-title').textContent;
+        
+        // Close the modal
+        document.querySelector('.template-modal-container').remove();
+        
+        // Scroll to contact form
+        document.querySelector('#contact-form').scrollIntoView({
+            behavior: 'smooth'
+        });
+        
+        // Select the template
+        selectTemplateByName(title);
+        
+        // Add notification
+        const notification = document.createElement('div');
+        notification.className = 'template-selected-notification';
+        notification.innerHTML = `<i class="fas fa-check-circle"></i> Đã chọn mẫu: ${title}`;
+        
+        const contactForm = document.querySelector('.contact-form');
+        contactForm.insertBefore(notification, contactForm.firstChild);
+        
+        // Auto-focus on name field
+        document.getElementById('fullName').focus();
+        
+        // Remove notification after 5 seconds
+        setTimeout(() => {
+            notification.classList.add('fade-out');
+            setTimeout(() => notification.remove(), 500);
+        }, 5000);
+    }
+});
+
+// Add package-template relationship handling
+document.addEventListener('DOMContentLoaded', function() {
+    const packageSelect = document.querySelector('#package');
+    const templateSelect = document.querySelector('#template');
+    
+    if (packageSelect && templateSelect) {
+        // Filter templates when package changes
+        packageSelect.addEventListener('change', function() {
+            const selectedPackage = this.value;
+            
+            // Reset template selection
+            templateSelect.value = '';
+            
+            // Show/hide template options based on package
+            Array.from(templateSelect.options).forEach(option => {
+                // Skip the placeholder option
+                if (!option.value) return;
+                
+                const optionPackage = option.getAttribute('data-package');
+                
+                if (selectedPackage === 'platinum') {
+                    // Platinum can see all templates
+                    option.style.display = '';
+                } else if (selectedPackage === 'gold') {
+                    // Gold can see Basic and Gold templates
+                    option.style.display = (optionPackage === 'platinum') ? 'none' : '';
+                } else if (selectedPackage === 'basic') {
+                    // Basic can only see Basic templates
+                    option.style.display = (optionPackage === 'basic') ? '' : 'none';
+                } else {
+                    // No package selected - show all
+                    option.style.display = '';
+                }
+            });
+        });
+        
+        // Also trigger filtering on page load
+        if (packageSelect.value) {
+            const event = new Event('change');
+            packageSelect.dispatchEvent(event);
+        }
+    }
 });

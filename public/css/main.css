@@ -62,6 +62,53 @@
   letter-spacing: 0.5px;
 }
 
+/* Form feedback messages */
+.form-success-message,
+.form-error-message {
+  padding: 12px 16px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  animation: slideDown 0.3s ease-out;
+}
+
+.form-success-message {
+  background-color: rgba(16, 185, 129, 0.1);
+  color: #10b981;
+  border: 1px solid rgba(16, 185, 129, 0.2);
+}
+
+.form-error-message {
+  background-color: rgba(239, 68, 68, 0.1);
+  color: #ef4444;
+  border: 1px solid rgba(239, 68, 68, 0.2);
+}
+
+.form-success-message i,
+.form-error-message i {
+  margin-right: 8px;
+  font-size: 1.1em;
+}
+
+.form-success-message.fade-out,
+.form-error-message.fade-out {
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-10px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
 /* CSS cho validation message */
 .form-error-message {
   background-color: rgba(239, 68, 68, 0.1);
@@ -2254,10 +2301,6 @@ body.modal-open {
 
 /* Cải thiện mobile header */
 @media screen and (max-width: 768px) {
-  .main-header {
-    padding: 10px 0;
-  }
-  
   .logo img {
     height: 32px;
   }

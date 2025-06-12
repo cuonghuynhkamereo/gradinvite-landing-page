@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const formHandler = require('../controllers/form-handler');
 
-// Homepage route
+// Main page route
 router.get('/', (req, res) => {
   res.render('index');
 });
