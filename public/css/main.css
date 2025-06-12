@@ -98,7 +98,6 @@
 
 .navbar-nav li {
   margin: 0 15px;
-  align-content: center;
 }
 
 .navbar-nav a {
@@ -151,7 +150,7 @@
 @media screen and (max-width: 1200px) {
   .mobile-toggle {
     display: block;
-    z-index: 2001; /* Cao hơn navbar-menu */
+    z-index: 2001;
   }
   
   .navbar-menu {
@@ -159,10 +158,10 @@
     top: 0;
     right: -100%;
     width: 80%;
-    max-width: 320px;
+    max-width: 400px; /* Tăng max-width cho tablet */
     height: 100vh;
     background-color: white;
-    z-index: 2000; /* Z-index cao để đảm bảo hiển thị trên cùng */
+    z-index: 2000; /* Đảm bảo z-index cao hơn */
     transition: all 0.3s ease;
     padding: 80px 20px 30px;
     box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
@@ -184,11 +183,6 @@
     text-align: left;
   }
   
-  .mobile-toggle {
-    display: block;
-    z-index: 2001; /* Cao hơn navbar-menu */
-  }
-  
   body.menu-open::after {
     content: '';
     position: fixed;
@@ -197,55 +191,9 @@
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
-    /* z-index: 1999; */
+    z-index: 999;
   }
   
-  /* Cải thiện nút toggle */
-  .mobile-toggle {
-    width: 35px;
-    height: 30px;
-    position: relative;
-    margin-left: auto;
-    cursor: pointer;
-    background: transparent;
-    border: none;
-    padding: 0;
-  }
-  
-  .mobile-toggle span {
-    display: block;
-    position: absolute;
-    height: 3px;
-    width: 100%;
-    background: var(--primary);
-    border-radius: 3px;
-    opacity: 1;
-    left: 0;
-    transform: rotate(0deg);
-    transition: .25s ease-in-out;
-  }
-  
-  .mobile-toggle span:nth-child(1) { top: 0px; }
-  .mobile-toggle span:nth-child(2) { top: 10px; }
-  .mobile-toggle span:nth-child(3) { top: 20px; }
-  
-  /* Hiệu ứng khi menu mở */
-  body.menu-open .mobile-toggle span:nth-child(1) {
-    top: 10px;
-    transform: rotate(135deg);
-  }
-  
-  body.menu-open .mobile-toggle span:nth-child(2) {
-    opacity: 0;
-    left: -60px;
-  }
-  
-  body.menu-open .mobile-toggle span:nth-child(3) {
-    top: 10px;
-    transform: rotate(-135deg);
-  }
-  
-  /* Cải thiện hiệu ứng khi menu mở */
   .btn-nav {
     margin-top: 20px;
     width: 100%;
@@ -253,14 +201,14 @@
   }
 }
 
-/* Điều chỉnh thêm cho tablet */
+/* Thêm một số điều chỉnh đặc biệt cho tablet (màn hình trung bình) */
 @media screen and (min-width: 768px) and (max-width: 1200px) {
   .navbar-menu {
-    max-width: 350px; /* Rộng hơn một chút trên tablet */
+    max-width: 400px; /* Rộng hơn so với mobile */
   }
   
   .mobile-toggle {
-    width: 40px; /* Lớn hơn một chút trên tablet */
+    width: 40px; /* Lớn hơn một chút */
     height: 35px;
   }
   
@@ -268,12 +216,21 @@
   .mobile-toggle span:nth-child(2) { top: 12px; }
   .mobile-toggle span:nth-child(3) { top: 24px; }
   
-  /* Đối với body.menu-open, cũng cần điều chỉnh position span khi mở menu */
   body.menu-open .mobile-toggle span:nth-child(1) { top: 12px; }
   body.menu-open .mobile-toggle span:nth-child(3) { top: 12px; }
+  
+  .navbar-nav li {
+    margin: 18px 0; /* Khoảng cách lớn hơn giữa các mục menu */
+  }
+  
+  .navbar-nav a {
+    font-size: 18px; /* Font size lớn hơn trên tablet */
+  }
+  
+  .logo span {
+    font-size: 1.5rem; /* Logo text lớn hơn */
+  }
 }
-
-/* Xóa bỏ bất kỳ CSS nào hiện có cho menu trong @media (max-width: 768px) */
 
 /* Adjusting hero section to account for header */
 .hero-section {
@@ -587,7 +544,7 @@ body {
   transform: rotate(45deg);
   font-size: 12px;
   font-weight: 600;
-  box-shadow: 0 2px 10px rgba(99, 102, 241, 0.3);
+  box-shadow: 0 2px 10px rgba(99, 102,241, 0.3);
   z-index: 3;
 }
 
@@ -1424,7 +1381,7 @@ p {
   border: none;
   border-radius: 30px;
   padding: 10px 20px;
-  margin: 10 8px;
+  margin: 10px 10px;
   font-size: 14px;
   font-weight: 600;
   color: var(--text-secondary);
@@ -2012,7 +1969,7 @@ body.modal-open {
 }
 
 /* Mobile Menu Improvements */
-@media (max-width: 1200px) {
+@media (max-width: 768px) {
   .navbar-menu.active {
     padding: 80px 0 30px;
   }
@@ -2458,5 +2415,46 @@ body.modal-open {
   
   @keyframes fadeOut {
     to { opacity: 0; }
+  }
+}
+
+/* Thêm style cho menu desktop (>1200px) */
+@media screen and (min-width: 1201px) {
+  .navbar-menu {
+    position: static;
+    width: auto;
+    height: auto;
+    background-color: transparent;
+    box-shadow: none;
+    padding: 0;
+    overflow-y: visible;
+    max-width: none;
+  }
+  
+  .navbar-nav {
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+  }
+  
+  .navbar-nav li {
+    margin: 0 15px;
+    width: auto;
+    text-align: center;
+  }
+  
+  .mobile-toggle {
+    display: none;
+  }
+  
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .btn-nav {
+    margin-top: 0;
+    width: auto;
   }
 }
