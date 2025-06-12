@@ -1,11 +1,14 @@
+// Load environment variables
+require('dotenv').config();
+
 const nodemailer = require('nodemailer');
 
 // Configure email transporter
 const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
-    user: 'cuong.huynh@kamereo.vn', // Replace with your Gmail account
-    pass: 'lsev ykiz mrnd apiy' // Use app password for Gmail (not your regular password)
+    user: 'cuong.huynh@kamereo.vn', // Use the destination email
+    pass: process.env.EMAIL_PASSWORD // You need to generate an App Password from your Google account
   }
 });
 
@@ -30,8 +33,8 @@ exports.processForm = (req, res) => {
 
   // Email options
   const mailOptions = {
-    from: 'cuong.huynh@kamereo.vn', // Replace with your Gmail
-    to: 'anhcuonghuynhnguyen@gmail.com', // Destination email
+    from: 'cuong.huynh@kamereo.vn', // Use the same as auth.user
+    to: 'cuong.huynh@kamereo.vn',
     subject: `Yêu cầu tư vấn từ ${formData.fullName}`,
     html: emailContent
   };
