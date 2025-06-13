@@ -1211,7 +1211,7 @@ footer {
 }
 
 .footer-brand img {
-  height: 100px;
+  /* height: 100px; */
   margin-bottom: 5px;
 }
 
@@ -1224,9 +1224,10 @@ footer {
   color: white;
   font-size: 1.8rem;
   margin: 10px 0;
-  background: linear-gradient(90deg, #4361ee, #4895ef);
+  background: linear-gradient(45deg, var(--primary), var(--accent));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  color: var(--primary);
 }
 
 .footer-heading {
