@@ -14,39 +14,38 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
         
-        // Handle form submission
-        form.addEventListener('submit', function(e) {
-            // Kiểm tra các field bắt buộc
-            const invalidFields = form.querySelectorAll('input:invalid, select:invalid');
+        // Only validate the form, don't submit it
+        form.addEventListener('invalid', function(e) {
+            e.preventDefault();
             
+            // Focus on first invalid field
+            const invalidFields = form.querySelectorAll('input:invalid, select:invalid');
             if (invalidFields.length > 0) {
-                e.preventDefault();
-                // Focus vào field lỗi đầu tiên
                 invalidFields[0].focus();
 
-                // Hiển thị thông báo
+                // Display error message
                 const errorMsg = document.createElement('div');
                 errorMsg.className = 'form-error-message';
                 errorMsg.innerHTML = '<i class="fas fa-exclamation-circle"></i> Vui lòng điền đầy đủ thông tin bắt buộc';
 
-                // Xóa thông báo lỗi cũ nếu có
+                // Remove old error messages
                 const oldError = form.querySelector('.form-error-message');
                 if (oldError) {
                     oldError.remove();
                 }
 
-                // Thêm thông báo lỗi mới
+                // Add new error message
                 form.insertBefore(errorMsg, form.firstChild);
 
-                // Tự động ẩn thông báo sau 5 giây
+                // Auto-hide message after 5 seconds
                 setTimeout(() => {
                     errorMsg.classList.add('fade-out');
                     setTimeout(() => errorMsg.remove(), 500);
                 }, 5000);
             }
-        });
+        }, true);
 
-        // Highlight input khi focus
+        // Highlight input on focus
         const inputs = form.querySelectorAll('input, select, textarea');
         inputs.forEach(input => {
             input.addEventListener('focus', function() {

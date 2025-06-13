@@ -1,3 +1,14 @@
+/* Global z-index hierarchy */
+:root {
+  --z-index-base: 1;
+  --z-index-header: 100;
+  --z-index-dropdown: 200;
+  --z-index-navbar: 1000;
+  --z-index-overlay: 1500;
+  --z-index-modal: 2000;
+  --z-index-toast: 2500;
+}
+
 /* Điều chỉnh kích thước tổng thể cho trang web */
 :root {
   /* Giữ nguyên các biến màu sắc */
@@ -2500,5 +2511,142 @@ body.modal-open {
   .btn-nav {
     margin-top: 0;
     width: auto;
+  }
+}
+
+/* Success modal styles */
+.success-modal-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: var(--z-index-modal);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.success-modal-container.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.success-modal {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 5px 30px rgba(0, 0, 0, 0.15);
+  width: 90%;
+  max-width: 500px;
+  padding: 0;
+  animation: modalSlideIn 0.4s ease;
+  overflow: hidden;
+}
+
+.success-modal-header {
+  background-color: #10b981;
+  color: white;
+  padding: 20px;
+  text-align: center;
+  position: relative;
+}
+
+.success-modal-header .success-icon {
+  font-size: 48px;
+  margin-bottom: 10px;
+}
+
+.success-modal-header h2 {
+  font-size: 24px;
+  margin: 0;
+}
+
+.success-modal-body {
+  padding: 30px;
+  text-align: center;
+}
+
+.success-modal-body p {
+  margin-bottom: 20px;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.success-modal-body .user-name {
+  font-weight: 600;
+}
+
+.success-modal-body .next-steps {
+  background-color: #f8fafc;
+  padding: 15px;
+  border-radius: 8px;
+  margin: 20px 0;
+  text-align: left;
+}
+
+.success-modal-body .next-steps h3 {
+  margin-top: 0;
+  font-size: 18px;
+  color: #475569;
+}
+
+.success-modal-body .next-steps ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.success-modal-body .next-steps li {
+  margin-bottom: 8px;
+  color: #475569;
+}
+
+.success-modal-footer {
+  padding: 0 30px 30px;
+  text-align: center;
+}
+
+.close-success-btn {
+  background-color: #10b981;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 12px 25px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.close-success-btn:hover {
+  background-color: #0d9268;
+}
+
+@keyframes modalSlideIn {
+  from {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@media (max-width: 768px) {
+  .success-modal {
+    width: 95%;
+  }
+  
+  .success-modal-header {
+    padding: 15px;
+  }
+  
+  .success-modal-body,
+  .success-modal-footer {
+    padding: 20px;
   }
 }

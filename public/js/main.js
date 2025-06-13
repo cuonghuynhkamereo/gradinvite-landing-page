@@ -166,20 +166,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 submitBtn.textContent = originalText;
                 
                 if (data.success) {
-                    // Show success message
-                    const successMsg = document.createElement('div');
-                    successMsg.className = 'form-success-message';
-                    successMsg.innerHTML = `<i class="fas fa-check-circle"></i> ${data.message}`;
-                    contactForm.prepend(successMsg);
-                    
                     // Reset the form
                     contactForm.reset();
                     
-                    // Remove success message after 5 seconds
-                    setTimeout(() => {
-                        successMsg.classList.add('fade-out');
-                        setTimeout(() => successMsg.remove(), 500);
-                    }, 5000);
+                    // Show success modal
+                    showSuccessModal(formObject.fullName);
                 } else {
                     // Show error message
                     const errorMsg = document.createElement('div');
@@ -902,3 +893,57 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 });
+
+// Function to display success modal
+function showSuccessModal(userName) {
+    // Create modal container
+    const modalContainer = document.createElement('div');
+    modalContainer.className = 'success-modal-container';
+    
+    // Create modal content
+    modalContainer.innerHTML = `
+        <div class="success-modal">
+            <div class="success-modal-header">
+                <div class="success-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <h2>Gửi thông tin thành công!</h2>
+            </div>
+            <div class="success-modal-body">
+                <p>Cảm ơn <span class="user-name">${userName}</span> đã quan tâm đến dịch vụ của chúng tôi!</p>
+                <p>Thông tin của bạn đã được gửi đến đội ngũ tư vấn.</p>
+                
+                <div class="next-steps">
+                    <h3>Các bước tiếp theo:</h3>
+                    <ul>
+                        <li>Đội ngũ tư vấn sẽ liên hệ với bạn trong vòng 24h tới.</li>
+                        <li>Chúng tôi sẽ gửi thông tin chi tiết về gói dịch vụ và mẫu thiệp bạn đã chọn.</li>
+                        <li>Bạn có thể tiếp tục tham khảo các mẫu thiệp khác trong thời gian chờ đợi.</li>
+                    </ul>
+                </div>
+                
+                <p>Nếu có bất kỳ thắc mắc nào, vui lòng liên hệ qua Zalo hoặc Messenger ở cuối trang.</p>
+            </div>
+            <div class="success-modal-footer">
+                <button class="close-success-btn">Đóng</button>
+            </div>
+        </div>
+    `;
+    
+    // Add to DOM
+    document.body.appendChild(modalContainer);
+    
+    // Show modal with animation
+    setTimeout(() => {
+        modalContainer.classList.add('active');
+    }, 10);
+    
+    // Handle close button
+    const closeBtn = modalContainer.querySelector('.close-success-btn');
+    closeBtn.addEventListener('click', () => {
+        modalContainer.classList.remove('active');
+        setTimeout(() => {
+            modalContainer.remove();
+        }, 300);
+    });
+}

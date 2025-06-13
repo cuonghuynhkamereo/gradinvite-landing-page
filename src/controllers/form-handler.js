@@ -7,8 +7,8 @@ const nodemailer = require('nodemailer');
 const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
-    user: 'cuong.huynh@kamereo.vn', // Use the destination email
-    pass: process.env.EMAIL_PASSWORD // You need to generate an App Password from your Google account
+    user: 'cuong.huynh@kamereo.vn',
+    pass: process.env.EMAIL_PASSWORD
   }
 });
 
@@ -33,7 +33,7 @@ exports.processForm = (req, res) => {
 
   // Email options
   const mailOptions = {
-    from: 'cuong.huynh@kamereo.vn', // Use the same as auth.user
+    from: 'cuong.huynh@kamereo.vn',
     to: 'cuong.huynh@kamereo.vn',
     subject: `Yêu cầu tư vấn từ ${formData.fullName}`,
     html: emailContent
@@ -51,7 +51,7 @@ exports.processForm = (req, res) => {
       console.log('Email sent:', info.response);
       res.json({
         success: true,
-        message: 'Form đã được gửi thành công. Chúng tôi sẽ liên hệ với bạn sớm!'
+        message: 'Thông tin đã được gửi thành công. Đội ngũ tư vấn sẽ liên hệ với bạn trong thời gian sớm nhất!'
       });
     }
   });
